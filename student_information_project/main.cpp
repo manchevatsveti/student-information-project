@@ -66,7 +66,11 @@ int main() {
 				deletingStudent(fn, fileName);
 				break;
 			case 3:
-			 
+				cout << "Sort by: " << endl << "1. Faculty number" << endl << "2. Average score" << endl;
+				getline(cin, sortBy);
+				cout << endl << "1. Ascending order" << endl << "2. Descending order" << endl;
+				getline(cin, sortOrder);
+				sortStudents(stoi(sortBy), stoi(sortOrder), fileName);
 				break;
 			case 4:
 				printFile(fileName);
