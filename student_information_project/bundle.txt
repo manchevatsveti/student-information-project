@@ -1,7 +1,7 @@
 1:Ivan Ivanov:algebra-3:dis-6; average score /4.5
 1:Ivan Ivanov:algebra-3:dis-6; average score /4.5
 2:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-2:Ivan Ivanov:algebra-3:dis-6; average score /4.5
+2:petko:dis-6; average score /6
 3:Ivan Ivanov:algebra-3:dis-6; average score /3
 3:Ivan Ivanov:algebra-3:dis-6; average score /3
 4:Ivan Ivanov:algebra-3:dis-6; average score /5
