@@ -12,7 +12,7 @@ void addingStudent(string fileName, string fn, string name, string countSubjects
 void deletingStudent(string facultyNumberToDelete, string fileName);
 void sortStudents(int sortBy, int sortOrder, string fileName);
 void printFile(string fileName);
-void printMultipleFiles(int countGroups);
+void printMultipleFiles(int countGroups, string* groups, string sortBy, string sortOrder);
 
 //utility functions
 void writingInVectorBasedOnSortCriteria(string fileName, int sortBy, vector<string>& students);
@@ -20,18 +20,21 @@ void rewriteVector(vector<string>& students);
 void writingInFileInAscendingOrder(vector<string>& students, string fileName);
 void writingInFileInDescendingOrder(vector<string>& students, string fileName);
 string fileNameGenerator(string groupNum);
-void combineMultipleFilesInOne(int countGroups);
+void combineMultipleFilesInOne(int countGroups, string* groups);
 
 //validation functions
+bool isGroupNumberValid(string group);
 bool userInputValidation(string input);
 bool isFnUnique(string fileName, string fn);
-bool isGroupNumberValid(string group);
+bool isCountSubjectsValid(string countSubjects);
 bool isSortCriteriaValid(int sortCriteria);
 
 int main() {
 
 	string sortBy, sortOrder, input, fn, name, countSubjects, countGroupsToPrint, student, group, fileName;
-	bool isInputValid = false, validCountSubjects = false, validCountGroups = false, validGroupNumber = false, validFn = false, validSortCriteria = false;
+	bool validGroupNumber = false, isInputValid = false, validFn = false, validCountSubjects = false, validSortCriteria = false;
+
+	string* groups;
 
 	cout << "Group: " << endl;
 	while (!validGroupNumber) {
@@ -42,14 +45,13 @@ int main() {
 			cout << "Invalid input. Please enter a number from 1 to 8." << endl;
 		}
 	}
+	validGroupNumber = false;
 	fileName = fileNameGenerator(group);
 
 	printMenu();
 
 	while (getline(cin, input)) {
-
 		isInputValid = userInputValidation(input);
-
 		if (!isInputValid) {
 			cout << "Invalid input. Please enter a number from 1 to 6." << endl;
 		}
@@ -57,6 +59,7 @@ int main() {
 			switch (stoi(input)) {
 			case 1:
 				cout << "Faculty number:" << endl;
+
 				while (!validFn) {
 					getline(cin, fn);
 					validFn = isFnUnique(fileName, fn);
@@ -70,15 +73,15 @@ int main() {
 				cout << "Name of student:" << endl;
 				getline(cin, name);
 				cout << "Number of subjects studied: " << endl;
+
 				while (!validCountSubjects) {
 					getline(cin, countSubjects);
-					if (stoi(countSubjects) < 1 || stoi(countSubjects) > 10) {
+					validCountSubjects = isCountSubjectsValid(countSubjects);
+					if (!validCountSubjects) {
 						cout << "Count should be between 1 and 10. Please try again!" << endl;
 					}
-					else {
-						validCountSubjects = true;
-					}
 				}
+				validCountSubjects = false;
 				addingStudent(fileName, fn, name, countSubjects);
 				break;
 			case 2:
@@ -116,17 +119,54 @@ int main() {
 				break;
 			case 5:
 				cout << "Number of groups to print: " << endl;
-				while (validCountGroups != true) {
+				while (!validGroupNumber) {
 					getline(cin, countGroupsToPrint);
-					if (stoi(countGroupsToPrint) < 1 || stoi(countGroupsToPrint) > 8) {
-						cout << "Count should be between 1 and 8. Please try again!" << endl;
-					}
-					else {
-						validCountGroups = true;
+					validGroupNumber = isGroupNumberValid(countGroupsToPrint);
+
+					if (!validGroupNumber) {
+						cout << "Invalid input. Please enter a number from 1 to 8." << endl;
 					}
 				}
-				printMultipleFiles(stoi(countGroupsToPrint));
-				validCountGroups = false;
+				validGroupNumber = false;
+
+				groups = new string[stoi(countGroupsToPrint)];//creating an array with all the groups
+
+				cout << "Please enter the " << stoi(countGroupsToPrint) << " groups to be printed:" << endl;
+
+				for (size_t i = 0; i < stoi(countGroupsToPrint); i++) {
+					while (!validGroupNumber) {
+						getline(cin, groups[i]);
+						validGroupNumber = isGroupNumberValid(groups[i]);
+
+						if (!validGroupNumber) {
+							cout << "Invalid input. Please enter a number from 1 to 8." << endl;
+						}
+					}
+					validGroupNumber = false;
+				}
+
+				cout << "Sort by: " << endl << "1. Faculty number" << endl << "2. Average score" << endl;
+				while (validSortCriteria != true) {
+					getline(cin, sortBy);
+					validSortCriteria = isSortCriteriaValid(stoi(sortBy));
+					if (!validSortCriteria) {
+						cout << "Choose between opion 1 and 2. Please try again!" << endl;
+					}
+				}
+				validSortCriteria = false;
+
+				cout << endl << "1. Ascending order" << endl << "2. Descending order" << endl;
+				while (validSortCriteria != true) {
+					getline(cin, sortOrder);
+					validSortCriteria = isSortCriteriaValid(stoi(sortOrder));
+					if (!validSortCriteria) {
+						cout << "Choose between opion 1 and 2. Please try again!" << endl;
+					}
+				}
+				validSortCriteria = false;
+
+				printMultipleFiles(stoi(countGroupsToPrint), groups, sortBy, sortOrder);
+				delete[] groups;
 				break;
 			case 6:
 				return 0;
@@ -279,18 +319,12 @@ void printFile(string fileName) {
 	File.close();
 }
 
-void printMultipleFiles(int countGroups) {
-	string sortBy, sortOrder;
+void printMultipleFiles(int countGroups, string* groups, string sortBy, string sortOrder) {
+	string fileBundle = "bundle.txt";
 
-	combineMultipleFilesInOne(countGroups);
-
-	cout << "Sort by: " << endl << "1. Faculty number" << endl << "2. Average score" << endl;
-	getline(cin, sortBy);
-	cout << endl << "1. Ascending order" << endl << "2. Descending order" << endl;
-	getline(cin, sortOrder);
-	sortStudents(stoi(sortBy), stoi(sortOrder), "bundle.txt");
-
-	printFile("bundle.txt");
+	combineMultipleFilesInOne(countGroups, groups);
+	sortStudents(stoi(sortBy), stoi(sortOrder), fileBundle);
+	printFile(fileBundle);
 }
 
 //utility functions
@@ -384,44 +418,36 @@ string fileNameGenerator(string groupNum) {
 	return fileName;
 }
 
-void combineMultipleFilesInOne(int countGroups) {
+void combineMultipleFilesInOne(int countGroups, string* groups) {
 	fstream File;
 	string fileBundle = "bundle.txt", buffer;
-	bool validGroupNumber = false;
 
-	string* groups = new string[countGroups];//creating an array with all the grades
+	File.open(fileBundle, std::fstream::out);
 
 	for (size_t i = 0; i < countGroups; i++) {
-		cout << "Group " << i + 1 << ":" << endl;
+		fstream FileTemp;
+		FileTemp.open(fileNameGenerator(groups[i]), std::fstream::in);
 
-		while (!validGroupNumber) {
-			getline(cin, groups[i]);
-			validGroupNumber = isGroupNumberValid(groups[i]);
-
-			if (!validGroupNumber) {
-				cout << "Invalid input. Please enter a number from 1 to 8." << endl;
+		if (FileTemp.is_open()) {
+			while (getline(FileTemp, buffer) && buffer.size() > 0) {
+				File << buffer << endl;
 			}
 		}
-		validGroupNumber = false;
-
-		File.open(fileBundle, std::fstream::out);
-
-		for (size_t i = 0; i < countGroups; i++) {
-			fstream FileTemp;
-			FileTemp.open(fileNameGenerator(groups[i]), std::fstream::in);
-
-			if (FileTemp.is_open()) {
-				while (getline(FileTemp, buffer) && buffer.size() > 0) {
-					File << buffer << endl;
-				}
-			}
-			FileTemp.close();
-		}
-		File.close();
+		FileTemp.close();
 	}
+	File.close();
+
 }
 
 //validation functions
+bool isGroupNumberValid(string group) {
+	bool isValid = true;
+	if (stoi(group) < 1 || stoi(group) > 8) {
+		isValid = false;;
+	}
+	return isValid;
+}
+
 bool userInputValidation(string input) {
 	bool isValidInput = true;
 
@@ -456,9 +482,9 @@ bool isFnUnique(string fileName, string fn) {
 	return isUnique;
 }
 
-bool isGroupNumberValid(string group) {
+bool isCountSubjectsValid(string countSubjects) {
 	bool isValid = true;
-	if (stoi(group) < 1 || stoi(group) > 8) {
+	if (stoi(countSubjects) < 1 || stoi(countSubjects) > 10) {
 		isValid = false;;
 	}
 	return isValid;
@@ -473,4 +499,3 @@ bool isSortCriteriaValid(int sortCriteria) {
 
 	return isValid;
 }
-

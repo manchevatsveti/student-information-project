@@ -3,4 +3,4 @@
 3:Ivan Ivanov:algebra-3:dis-6; average score /3
 4:Ivan Ivanov:algebra-3:dis-6; average score /5
 5:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-6:Petko Dimitrov:algebra-3:dis-6; average score /4.5
+6:Petko Dimitrov:algebra-3:dis-6; average score /4.522:rr:d-3; average score /3
