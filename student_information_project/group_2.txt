@@ -4,3 +4,4 @@
 3:Ivan Ivanov:algebra-3:dis-6; average score /3
 2:petko:dis-6; average score /6
 1:Ivan Ivanov:algebra-3:dis-6; average score /4.5
+9:qq:q-1; average score /1

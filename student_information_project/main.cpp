@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+
 using namespace std;
 
 void printMenu();
@@ -28,6 +29,7 @@ bool userInputValidation(string input);
 bool isFnUnique(string fileName, string fn);
 bool isCountSubjectsValid(string countSubjects);
 bool isSortCriteriaValid(int sortCriteria);
+bool isGradeValid(string grade);
 
 int main() {
 
@@ -193,19 +195,44 @@ void addingStudent(string fileName, string fn, string name, string countSubjects
 	string tempGrade;
 	fstream File;
 	double sumGrades = 0, averageScore = 0;
+	bool validGrade = false, validSubject=true;
 
 	string* subjects = new string[stoi(countSubjects)];//creating an array with all the subjects
 	int* grades = new int[stoi(countSubjects)];//creating an array with all the grades
 
 	for (size_t i = 0; i < stoi(countSubjects); i++) {
+		validSubject = true;
+
 		cout << "Subject " << i + 1 << ":" << endl;
 		getline(cin, subjects[i]);
 
-		cout << "Grade:" << endl;
-		getline(cin, tempGrade);
+		transform(subjects[i].begin(), subjects[i].end(), subjects[i].begin(), ::toupper);
 
-		grades[i] = stoi(tempGrade);
-		sumGrades += grades[i];//sum all grades
+		for (size_t j = 0; j < i; j++) {
+			transform(subjects[j].begin(), subjects[j].end(), subjects[j].begin(), ::toupper);
+			if (subjects[j]==subjects[i]) {
+				cout << "This subject already exists. Please enter a new one! " << endl;
+				validSubject = false;
+				i--;
+			}
+		}
+
+		if (validSubject) {
+			cout << "Grade:" << endl;
+			while (!validGrade) {
+				getline(cin, tempGrade);
+				validGrade = isGradeValid(tempGrade);
+
+				if (!validGrade) {
+					cout << "Invalid input. Please enter a number from 2 to 6." << endl;
+				}
+			}
+			validGrade = false;
+
+			grades[i] = stoi(tempGrade);
+			sumGrades += grades[i];//sum all grades
+		}
+		
 	}
 	averageScore = sumGrades / stoi(countSubjects);//average score of all grades
 
@@ -497,5 +524,13 @@ bool isSortCriteriaValid(int sortCriteria) {
 		isValid = true;
 	}
 
+	return isValid;
+}
+
+bool isGradeValid(string grade) {
+	bool isValid = true;
+	if (stoi(grade) < 2 || stoi(grade) > 6) {
+		isValid = false;;
+	}
 	return isValid;
 }
