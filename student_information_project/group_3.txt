@@ -1,8 +1,7 @@
-10:Vazhen vazhnik:UP-6; average score /6
-1:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-2:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-3:Ivan Ivanov:algebra-3:dis-6; average score /3
-4:Ivan Ivanov:algebra-3:dis-6; average score /5
-5:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-6:Petko Dimitrov:algebra-3:dis-6; average score /4.5
-11:qq:DIS-2:ALGEBRA--842150451; average score /1
+0MI0606526:Petur Molov:algebra-3:dis-6; average score /4.5
+7MI0600153:Ioana Georgieva:algebra-3:dis-6; average score /4.5
+0MI0600446:Ivan Ivanov:algebra-3:dis-3; average score /3
+9MI0600293:Raia Peeva:algebra-5:dis-6; average score /5.5
+0MI0600199:Milen Dimitrova:algebra-2:dis-4; average score /3
+
+

@@ -1,7 +1,5 @@
-4:Ivan Ivanov:algebra-3:dis-6; average score /5
-6:Petko Dimitrov:algebra-3:dis-6; average score /4.5
-5:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-2:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-1:Ivan Ivanov:algebra-3:dis-6; average score /4.5
-7:alek:dis-3; average score /3
-3:Ivan Ivanov:algebra-3:dis-6; average score /3
+0MI0600126:Petur Ivanov:algebra-3:dis-6; average score /4.5
+2MI0600173:Ioana Peeva:algebra-3:dis-6; average score /4.5
+3MI0600726:Ivan Molov:algebra-3:dis-3; average score /3
+4MI0600192:Raia Georgieva:algebra-5:dis-6; average score /5.5
+5MI0600199:Milen Stoyanov:algebra-2:dis-6; average score /4
