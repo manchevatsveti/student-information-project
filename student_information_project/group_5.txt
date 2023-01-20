@@ -3,4 +3,3 @@
 0MI0600766:Ivan Ivanov:algebra-3:dis-3; average score /3
 2MI0600093:Raia Peeva:algebra-5:dis-6; average score /5.5
 6MI0600199:Milen Dimitrova:algebra-2:dis-6; average score /4
-

@@ -3,7 +3,4 @@
 3MI0600726:Ivan Molov:algebra-3:dis-3; average score /3
 4MI0600192:Raia Georgieva:algebra-5:dis-6; average score /5.5
 5MI0600199:Milen Stoyanov:algebra-2:dis-6; average score /4
-
-
-
-
+0MI0700234:Martin Mekerov:ALGEBRA-6:DIS-5; average score /5.5

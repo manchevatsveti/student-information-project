@@ -1,3 +1,19 @@
+/**
+*
+* Solution to course project # 05
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2022/2023
+*
+* @author Tsvetelina Mancheva
+* @idnumber 0MI0600239
+* @compiler GCC 
+*
+* <main code file>
+*
+*/
+
+
 #include <fstream>
 #include <iostream>
 #include <string>
